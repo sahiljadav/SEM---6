@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration Form</title>
+
+    <script>
+        function validateForm() {
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let age = document.getElementById("age").value;
+
+            if (name == "") {
+                alert("Please enter your name");
+                return false;
+            }
+
+            if (email == "") {
+                alert("Please enter your email");
+                return false;
+            }
+
+            if (age == "" || age < 5 || age > 100) {
+                alert("Please enter a valid age");
+                return false;
+            }
+
+            alert("Form Submitted Successfully!");
+            return true;
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <h2>Student Registration Form</h2>
+
+    <form onsubmit="return validateForm()">
+
+        Name: <br>
+        <input type="text" id="name"><br><br>
+
+        Email: <br>
+        <input type="text" id="email"><br><br>
+
+        Age: <br>
+        <input type="number" id="age"><br><br>
+
+        <button type="submit">Register</button>
+    </form>
+
+</body>
+</html>
+

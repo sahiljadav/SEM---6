@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Form Validation</title>
+</head>
+<body>
+    <form id="myForm">
+        Username: <input type="text" id="username"><br><br>
+        Password: <input type="password" id="password"><br><br>
+        Confirm Password: <input type="password" id="confirmPassword"><br><br>
+        Birthdate: <input type="date" id="birthdate"><br><br>
+        Enrollment No: <input type="text" id="enrollNo"><br><br>
+        Email: <input type="email" id="email"><br><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('myForm').onsubmit = function(e) {
+            e.preventDefault();
+
+            let username = document.getElementById('username').value;
+            let password = document.getElementById('password').value;
+            let confirm = document.getElementById('confirmPassword').value;
+            let birthdate = document.getElementById('birthdate').value;
+            let enroll = document.getElementById('enrollNo').value;
+            let email = document.getElementById('email').value;
+
+            // username
+            if(username.length < 8) return alert("Username must be at least 8 characters");
+
+            // password
+            let passRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*]).{8,12}$/;
+            if(!passRegex.test(password)) return alert("Password must be 8-12 chars, 1 digit, 1 special char");
+
+            // confirm password
+            if(password !== confirm) return alert("Passwords do not match");
+
+            // age > 18
+            let birth = new Date(birthdate);
+            let today = new Date();
+            let age = today.getFullYear() - birth.getFullYear();
+            let m = today.getMonth() - birth.getMonth();
+            if(m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+            if(age < 18) return alert("You must be at least 18 years old");
+
+            // enrollment number
+            if(!/^\d{11}$/.test(enroll)) return alert("Enrollment No must be 11 digits");
+
+            // email
+            if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return alert("Invalid email");
+
+            alert("Form submitted successfully!");
+        }
+    </script>
+</body>
+</html>

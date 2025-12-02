@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Keyboard Event Handling</title>
+
+    <script>
+        function keyPressed(e) {
+            console.log("Key Code:", e.keyCode);
+
+            let ch = e.key.toLowerCase();
+            if (ch == "a" || ch == "e" || ch == "i" || ch == "o" || ch == "u") {
+                console.log("Vowel pressed:", ch);
+            }
+        }
+
+        function keyReleased() {
+            document.body.style.backgroundColor = "lightyellow";
+        }
+    </script>
+
+</head>
+
+<body onkeypress="keyPressed(event)" onkeyup="keyReleased()">
+
+    <h2>Press any key on your keyboard</h2>
+    <p>Open console (F12 → Console) to see results.</p>
+
+</body>
+</html>

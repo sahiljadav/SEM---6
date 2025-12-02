@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Array – Premium UI</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #1f1c2c, #928dab);
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .glass-card {
+            margin-top: 60px;
+            padding: 30px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+            transition: 0.4s ease-in-out;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.35);
+        }
+
+        h2 {
+            color: #fff;
+            letter-spacing: 1px;
+            font-weight: 600;
+            text-shadow: 0 0 8px rgba(255,255,255,0.4);
+            animation: glowText 3s infinite ease-in-out;
+        }
+
+        @keyframes glowText {
+            0% { text-shadow: 0 0 5px #fff; }
+            50% { text-shadow: 0 0 15px #ffffff, 0 0 25px #d5c6ff; }
+            100% { text-shadow: 0 0 5px #fff; }
+        }
+
+        .btn-custom {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            border: none;
+            color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            transition: 0.3s;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        .btn-custom:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #6a11cb;
+        }
+
+        table {
+            margin-top: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+        }
+
+        tbody tr {
+            background-color: rgba(255,255,255,0.15);
+            color: #fff;
+            transition: 0.3s;
+        }
+
+        tbody tr:hover {
+            background-color: rgba(255,255,255,0.25);
+            transform: scale(1.01);
+        }
+
+        .btn-edit {
+            background: #ffc107;
+            border: none;
+            transition: 0.25s;
+            color: #000;
+        }
+
+        .btn-edit:hover {
+            filter: brightness(1.2);
+            transform: scale(1.1);
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            border: none;
+            transition: 0.25s;
+            color: #fff;
+        }
+
+        .btn-delete:hover {
+            filter: brightness(1.2);
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="text-center mt-4"> CRUD Operation on Array </h2>
+
+    <div class="glass-card">
+        <div class="row g-3">
+            <div class="col-md-8">
+                <input type="text" id="itemInput" class="form-control p-3"
+                       placeholder="Enter item here..." style="border-radius: 12px;">
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-custom w-100 p-3" onclick="addItem()">Add / Update</button>
+            </div>
+        </div>
+
+        <table class="table table-hover text-center mt-4">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Item Name</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody id="dataTable"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    let data = [];
+    let editIndex = -1;
+
+    function renderTable() {
+        let tableHTML = "";
+
+        data.forEach((item, index) => {
+            tableHTML += `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${item}</td>
+                    <td>
+                        <button class="btn btn-edit btn-sm" onclick="editItem(${index})">Edit</button>
+                        <button class="btn btn-delete btn-sm" onclick="deleteItem(${index})">Delete</button>
+                    </td>
+                </tr>`;
+        });
+
+        document.getElementById("dataTable").innerHTML = tableHTML;
+    }
+
+    function addItem() {
+        let value = document.getElementById("itemInput").value.trim();
+
+        if (!value) {
+            alert("Please enter something!");
+            return;
+        }
+
+        if (editIndex === -1) {
+            data.push(value);
+        } else {
+            data[editIndex] = value;
+            editIndex = -1;
+        }
+
+        document.getElementById("itemInput").value = "";
+        renderTable();
+    }
+
+    function editItem(index) {
+        document.getElementById("itemInput").value = data[index];
+        editIndex = index;
+    }
+
+    function deleteItem(index) {
+        data.splice(index, 1);
+        renderTable();
+    }
+</script>
+
+</body>
+</html>
