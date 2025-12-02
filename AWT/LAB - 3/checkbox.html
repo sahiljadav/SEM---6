@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkbox Selector</title>
+</head>
+<body>
+
+    <h2>Roll Number Selector</h2>
+
+    <div id="checkboxContainer" onchange="updateSelectedValues()">
+        <label>
+            <input type="checkbox" name="rollNumber" value="101"> Roll No. 101
+        </label>
+        <label>
+            <input type="checkbox" name="rollNumber" value="102"> Roll No. 102
+        </label>
+        <label>
+            <input type="checkbox" name="rollNumber" value="103"> Roll No. 103
+        </label>
+        <label>
+            <input type="checkbox" name="rollNumber" value="104"> Roll No. 104
+        </label>
+        <label>
+            <input type="checkbox" name="rollNumber" value="105"> Roll No. 105
+        </label>
+    </div>
+
+    <h3>Selected Roll Numbers:</h3>
+    <div id="selectedValuesDisplay">
+        No roll numbers selected.
+    </div>
+
+    <script>
+        function updateSelectedValues() {
+            const checkboxes = document.querySelectorAll('input[name="rollNumber"]:checked');
+            const selectedValues = [];
+
+            checkboxes.forEach((checkbox) => {
+                selectedValues.push(checkbox.value);
+            });
+
+            const displayElement = document.getElementById('selectedValuesDisplay');
+
+            if (selectedValues.length > 0) {
+                displayElement.textContent = selectedValues.join(', ');
+            } else {
+                displayElement.textContent = "No roll numbers selected.";
+            }
+        }
+    </script>
+
+</body>
+</html>
